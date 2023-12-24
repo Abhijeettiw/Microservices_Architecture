@@ -1,0 +1,25 @@
+version: "3.8"
+
+networks:
+  mynetwork:
+
+services:
+  mysqlService:
+    container_name: mysql
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD : 6128
+      MYSQL_DATABASE: TEST
+    networks:
+      mynetwork:
+
+  springboot_employee_web:
+    container_name: springboot_employee_web
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      mynetwork:
+    restart: on-failure
